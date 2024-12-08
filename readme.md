@@ -1,4 +1,7 @@
 # API Documentation: 
+PORT = 4000
+JWT_SECRET = my_jwt_secret
+DB_CONNECT=mongodb+srv://saicharan:shivaay123@mymongo.uv55x.mongodb.net/uber
 
 ## Endpoint Description
 This endpoint allows users to register an account by providing required personal and authentication details. Upon successful registration, the endpoint returns an authentication token and the user details.
