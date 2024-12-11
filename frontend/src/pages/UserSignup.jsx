@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import UserContext from '../context/UserContext'
 
 const UserSignup = () => {
 
@@ -8,17 +10,28 @@ const UserSignup = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [userData, setUserData] = useState({})
+  const navigate= useNavigate()
+  const {user, setUser} = useContext(UserContext);
 
-  const submitHandler = (e) =>{
+  const BASE_URL= 'http:localhost:4000'
+
+  const submitHandler = async(e) =>{
     e.preventDefault()
-    setUserData({
-      fullName:{
+    const newUser={
+        fullName:{
         firstName: firstName,
         lastName: lastName
       },
       email: email,
       password: password
-    })
+    }
+    const response = await axios.post(`${BASE_URL}/user/register`,newUser)
+
+    if(response.status == 201){
+      const data = response.data;
+      setUser(data.user)
+      navigate('/home')
+    }
 
     setEmail('')
     setFirstName('')
@@ -71,7 +84,7 @@ const UserSignup = () => {
             placeholder="password"
           />
           <button className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-lg">
-            Login
+            Create Account
           </button>
         </form>
         <p className="text-center ">
