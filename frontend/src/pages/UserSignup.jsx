@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import UserContext from '../context/UserContext'
+import {UserDatacontext} from '../context/UserContext'
 
 const UserSignup = () => {
 
@@ -11,25 +11,26 @@ const UserSignup = () => {
   const [lastName, setLastName] = useState('')
   const [userData, setUserData] = useState({})
   const navigate= useNavigate()
-  const {user, setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(UserDatacontext);
 
-  const BASE_URL= 'http:localhost:4000'
+  const BASE_URL= 'http://localhost:4000'
 
   const submitHandler = async(e) =>{
     e.preventDefault()
     const newUser={
-        fullName:{
-        firstName: firstName,
-        lastName: lastName
+        fullname:{
+        firstname: firstName,
+        lastname: lastName
       },
       email: email,
       password: password
     }
-    const response = await axios.post(`${BASE_URL}/user/register`,newUser)
+    const response = await axios.post(`${BASE_URL}/users/register`,newUser)
 
     if(response.status == 201){
       const data = response.data;
       setUser(data.user)
+      localStorage.setItem('uber-user', data.token)
       navigate('/home')
     }
 

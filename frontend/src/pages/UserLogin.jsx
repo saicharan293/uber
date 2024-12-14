@@ -1,19 +1,32 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {UserDatacontext} from '../context/UserContext';
+import axios from "axios";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState('')
   const [userData, setUserData] = useState({})
+  const {user, setUser} = useContext(UserDatacontext)
+  const navigate=useNavigate()
 
-
-
-  const submitHandler = (e) =>{
+  const submitHandler = async(e) =>{
     e.preventDefault();
-    setUserData({
-      email: email, 
+    const userdata = {
+      email: email,
       password: password
-    })
+    }
+    const BASE_URL= 'http://localhost:4000'
+
+    const response = await axios.post(`${BASE_URL}/users/login`,userdata);
+
+    if(response.status==200){
+      const data = response.data
+      setUserData(data.user)
+      localStorage.setItem('uber-user',data.token)
+      navigate('/home');
+    }
+
     setEmail('');
     setPassword('');
   }
