@@ -23,7 +23,7 @@ const UserLogin = () => {
     if(response.status==200){
       const data = response.data
       setUserData(data.user)
-      localStorage.setItem('uber-user',data.token)
+      localStorage.setItem('token',data.token)
       navigate('/home');
     }
 

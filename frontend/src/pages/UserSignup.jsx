@@ -9,9 +9,9 @@ const UserSignup = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [userData, setUserData] = useState({})
+  // const [userData, setUserData] = useState({})
   const navigate= useNavigate()
-  const {user, setUser} = useContext(UserDatacontext);
+  const {setUser} = useContext(UserDatacontext);
 
   const BASE_URL= 'http://localhost:4000'
 
@@ -30,7 +30,7 @@ const UserSignup = () => {
     if(response.status == 201){
       const data = response.data;
       setUser(data.user)
-      localStorage.setItem('uber-user', data.token)
+      localStorage.setItem('token', data.token)
       navigate('/home')
     }
 

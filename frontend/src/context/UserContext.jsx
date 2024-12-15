@@ -12,9 +12,11 @@ const UserContext = ({children}) => {
     }
    })
 
+   const [isLoading, setIsLoading] = useState(null)
+
   return (
     <div>
-        <UserDatacontext.Provider value={{user, setUser}}>
+        <UserDatacontext.Provider value={{user, setUser, isLoading, setIsLoading}}>
             {children}
         </UserDatacontext.Provider>
     </div>
