@@ -85,7 +85,7 @@ const UserSignup = () => {
             placeholder="password"
           />
           <button className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-lg">
-            Create Account
+            Create User Account
           </button>
         </form>
         <p className="text-center ">
